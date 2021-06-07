@@ -18,11 +18,12 @@ class _MyAppState extends State<MyApp> {
   String _notificationState = "";
   String _getClientId = "";
   String _getDeviceToken = "";
-  String _getVoipToken = "";
   String _onReceivePayload = "";
   String _onReceiveNotificationResponse = "";
   String _onAppLinkPayLoad = "";
-  String? _onReceiveVoipPayLoad;
+  // 已废弃
+  // String _getVoipToken = "";
+  // String _onReceiveVoipPayLoad;
   //final Getuiflut getui = new Getuiflut();
 
   @override
@@ -42,8 +43,9 @@ class _MyAppState extends State<MyApp> {
       Getuiflut().startSdk(
           appId: "xXmjbbab3b5F1m7wAYZoG2",
           appKey: "BZF4dANEYr8dwLhj6lRfx2",
-          appSecret: "yXRS5zRxDt8WhMW8DD8W05");
-    }
+          appSecret: "yXRS5zRxDt8WhMW8DD8W05"
+      );
+    } 
 
     try {
       platformVersion = await Getuiflut.platformVersion;
@@ -111,16 +113,36 @@ class _MyAppState extends State<MyApp> {
           _onAppLinkPayLoad = "$message";
         });
       },
-      onRegisterVoipToken: (String message) async {
-        setState(() {
-          _getVoipToken = "$message";
-        });
+      onPushModeResult: (Map<String, dynamic> message) async {
+        print("flutter onPushModeResult: $message");
       },
-      onReceiveVoipPayLoad: (Map<String, dynamic> message) async {
-        setState(() {
-          _onReceiveVoipPayLoad = "$message";
-        });
+      onSetTagResult: (Map<String, dynamic> message) async {
+        print("flutter onSetTagResult: $message");
       },
+      onAliasResult: (Map<String, dynamic> message) async {
+        print("flutter onAliasResult: $message");
+      },
+      onQueryTagResult: (Map<String, dynamic> message) async {
+        print("flutter onQueryTagResult: $message");
+      },
+      onWillPresentNotification: (Map<String, dynamic> message) async {
+        print("flutter onWillPresentNotification: $message");
+      }, 
+      onOpenSettingsForNotification: (Map<String, dynamic> message) async {
+        print("flutter onOpenSettingsForNotification: $message");
+      }, 
+ 
+      // 已废弃
+      // onRegisterVoipToken: (String message) async {
+      //   setState(() {
+      //     _getVoipToken = "$message";
+      //   });
+      // },
+      // onReceiveVoipPayLoad: (Map<String, dynamic> message) async {
+      //   setState(() {
+      //     _onReceiveVoipPayLoad = "$message";
+      //   });
+      // },
     );
   }
 
@@ -165,7 +187,7 @@ class _MyAppState extends State<MyApp> {
             Text('platformVersion: $_platformVersion\n'),
             Text('clientId: $_getClientId\n'),
             Text(
-              'Android Public Funcation',
+              'Android Public Function',
               style: TextStyle(
                 color: Colors.lightBlue,
                 fontSize: 20.0,
@@ -180,7 +202,7 @@ class _MyAppState extends State<MyApp> {
               child: const Text('initGetuiSdk'),
             ),
             Text(
-              'SDK Public Funcation',
+              'SDK Public Function',
               style: TextStyle(
                 color: Colors.lightBlue,
                 fontSize: 20.0,
@@ -191,7 +213,9 @@ class _MyAppState extends State<MyApp> {
                 children: <Widget>[
                   RaisedButton(
                     onPressed: () {
-                      Getuiflut().onActivityCreate();
+                      if (Platform.isIOS) {
+                        Getuiflut().onActivityCreate();
+                      }
                     },
                     child: const Text('onActivityCreate'),
                   ),
@@ -217,12 +241,12 @@ class _MyAppState extends State<MyApp> {
                   },
                   child: const Text('stop push'),
                 ),
-                RaisedButton(
-                  onPressed: () {
-                    Getuiflut().turnOnPush();
-                  },
-                  child: const Text('resume push'),
-                ),
+                // RaisedButton(
+                //   onPressed: () {
+                //     Getuiflut().turnOnPush();
+                //   },
+                //   child: const Text('resume push'),
+                // ),
               ],
             ),
             Row(
@@ -271,12 +295,6 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 RaisedButton(
                   onPressed: () {
-                    Getuiflut().setLocalBadge(5);
-                  },
-                  child: const Text('setLocalBadge(5)'),
-                ),
-                RaisedButton(
-                  onPressed: () {
                     Getuiflut().setLocalBadge(0);
                   },
                   child: const Text('setLocalBadge(0)'),
@@ -284,19 +302,20 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
             Text(
-              'ios Public Funcation',
+              'ios Public Function',
               style: TextStyle(
                 color: Colors.redAccent,
                 fontSize: 20.0,
               ),
             ),
             Text('DeviceToken: $_getDeviceToken'),
-            Text('VoipToken: $_getVoipToken'),
-            Text('payload: $_onReceivePayload'),
-            Text(
-                'onReceiveNotificationResponse: $_onReceiveNotificationResponse'),
             Text('onAppLinkPayload: $_onAppLinkPayLoad'),
-            Text('onReceiveVoipPayLoad: $_onReceiveVoipPayLoad'),
+            Text('Payload: $_onReceivePayload'),
+            Text('APNs: $_onReceiveNotificationResponse'),
+                
+            // 已废弃
+            // Text('VoipToken: $_getVoipToken'),
+            // Text('onReceiveVoipPayLoad: $_onReceiveVoipPayLoad'),
           ]),
         ),
       ),

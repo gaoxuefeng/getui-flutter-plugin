@@ -28,5 +28,9 @@
 ## 0.2.7
 1. 修复GTSDK兼容性问题 
 
-## 0.3.0-nullsafety.1
+
+## 0.2.8
+1. iOS GTSDK 增加插件回调事件
+
+## 0.2.8-nullsafe
 1. 兼容flutter2.0 nullsafety
