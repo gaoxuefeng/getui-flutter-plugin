@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   String _onReceivePayload = "";
   String _onReceiveNotificationResponse = "";
   String _onAppLinkPayLoad = "";
+
   // 已废弃
   // String _getVoipToken = "";
   // String _onReceiveVoipPayLoad;
@@ -43,9 +44,8 @@ class _MyAppState extends State<MyApp> {
       Getuiflut().startSdk(
           appId: "xXmjbbab3b5F1m7wAYZoG2",
           appKey: "BZF4dANEYr8dwLhj6lRfx2",
-          appSecret: "yXRS5zRxDt8WhMW8DD8W05"
-      );
-    } 
+          appSecret: "yXRS5zRxDt8WhMW8DD8W05");
+    }
 
     try {
       platformVersion = await Getuiflut.platformVersion;
@@ -127,11 +127,11 @@ class _MyAppState extends State<MyApp> {
       },
       onWillPresentNotification: (Map<String, dynamic> message) async {
         print("flutter onWillPresentNotification: $message");
-      }, 
+      },
       onOpenSettingsForNotification: (Map<String, dynamic> message) async {
         print("flutter onOpenSettingsForNotification: $message");
-      }, 
- 
+      },
+
       // 已废弃
       // onRegisterVoipToken: (String message) async {
       //   setState(() {
@@ -312,7 +312,7 @@ class _MyAppState extends State<MyApp> {
             Text('onAppLinkPayload: $_onAppLinkPayLoad'),
             Text('Payload: $_onReceivePayload'),
             Text('APNs: $_onReceiveNotificationResponse'),
-                
+
             // 已废弃
             // Text('VoipToken: $_getVoipToken'),
             // Text('onReceiveVoipPayLoad: $_onReceiveVoipPayLoad'),
